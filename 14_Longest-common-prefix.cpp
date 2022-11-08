@@ -25,27 +25,20 @@ using namespace std;
 */
 
 string longestCommonPrefix(vector<string>& strs) {
-    int count = 0;
-    int flag = 1;
     int len = strs.size();
     string result = "";
+    
     if (len != 0){
-        while(flag == 1){
-            char c = strs[0][count];
-            for (int i = 1; i<len; i++){
-                if (c != strs[i][count]){
-                    flag = 0;
-                    break;
-                }
+        for (int i = 0; i<strs[0].length(); i++){
+            char c = strs[0][i];
+            for (int j = 1; j<len; j++){
+                if (c != strs[j][i])    return result;
             }
-            if (flag == 0)  continue;
             result.push_back(c);
-            count++;
         }
     }
     return result;
 }
-
 
 int main(void){
     vector<string> strs;
