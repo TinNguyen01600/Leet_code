@@ -29,15 +29,19 @@ class Solution:
             digit.append(num % 10)
             num = int(num/10)
 
-        for i in range(len(digit)-1, -1, -1):
+        i = len(digit)
+        temp = 0
+        while i >= 0:
+            if temp != 0:
+                special = self.check_special(temp, integer, roman)
+                if bool(special):     result += special     # check if temp in [special_int]  
+                else:
+                    pos = [j for j in range(len(integer)) if integer[j] < temp][-1]
+                    division = int(temp / integer[pos])
+                    remainder = temp % integer[pos]
+                    for k in range(division):   result += roman[pos]
+                    temp = remainder
+                    continue
+            i -= 1
             temp = digit[i] * (10**i)
-            if temp == 0: continue
-            special = self.check_special(temp, integer, roman)
-            if bool(special):     result += special     # check if temp in [special_int]
-            else:
-                pos = [j for j in range(len(integer)) if integer[j] < temp][-1]
-                division = int(temp / integer[pos])
-                remainder = temp % integer[pos]
-                for k in range(division):   result += roman[pos]
-                for k in range(remainder):  result += roman[pos-2]
         return result
