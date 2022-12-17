@@ -19,16 +19,15 @@ Output: true
 
 class Solution(object):
     def isSubsequence(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
         pos = []
         for i in s:
             if i not in t:  return False
             else:
-                pos += [e for e in range(len(t)) if t[e] == i]
-        for i in range(len(pos) - 1):
-            if pos[i] >= pos[i+1]:   return False
+                temp = [e for e in range(len(t)) if t[e] == i]
+                pos.append(temp)
+        min = -1
+        for i in range(len(pos)):
+            temp = [e for e in pos[i] if e > min]
+            if not bool(temp):  return False
+            else:   min = temp[0]
         return True
