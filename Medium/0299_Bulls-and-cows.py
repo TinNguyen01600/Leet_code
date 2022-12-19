@@ -25,12 +25,19 @@ Output: "1A0B"
 class Solution:
     def getHint(self, secret: str, guess: str) -> str:
         bull, cow = 0, 0
+        i = 0
+        while i < len(guess):
+            if guess[i] == secret[i]:   
+                bull += 1
+                # secret = secret[:i] + '' + secret[i + 1:]
+                # guess = guess[:i] + '' + guess[i + 1:]
+                secret = secret.replace(secret[i], '', 1)
+                guess = guess.replace(guess[i], '', 1)
+                i -= 1
+            i += 1
+            
         for i in range(len(guess)):
             if guess[i] in secret:
-                if guess[i] == secret[i]:   
-                    bull += 1
-                    secret = secret[:i] + 'a' + secret[i + 1:]
-                else:
-                    cow += 1
-                    secret = secret.replace(guess[i], 'a', 1)
+                cow += 1
+                secret = secret.replace(guess[i], 'a', 1)
         return str(bull) + 'A' + str(cow) + 'B'
