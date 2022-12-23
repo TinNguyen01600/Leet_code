@@ -1,4 +1,4 @@
 test.*
 *.exe
 .vscode
-setting.json
+.vscode/settings.json
