@@ -5,6 +5,9 @@
         "cmath": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "new": "cpp"
     }
 }
