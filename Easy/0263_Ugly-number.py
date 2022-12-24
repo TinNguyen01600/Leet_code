@@ -16,22 +16,14 @@ Explanation: 14 is not ugly since it includes the prime factor 7.
 """
 
 class Solution:
-    def prime(self, n: int) -> bool:
-        if n <= 1:  return False
-        if n <= 3:  return True
-        if n % 2 == 0 or n % 3 == 0:    return False
-        i = 5
-        while i*i <= n:
-            if n % i == 0 or n % (i+2) == 0:    return False
-            i += 6
-        return True
+    def decrease(self, n: int) -> int:
+        if n % 2 == 0:  n /= 2
+        elif n % 3 == 0:    n /= 3
+        elif n % 5 == 0:    n /= 5
+        else:   return n
+        return self.decrease(n)
     def isUgly(self, n: int) -> bool:
         if n == 1:  return True
-        index = []
-        for i in range(2, n+1):
-            if not self.prime(i):    continue
-            if n % i != 0:      continue
-            index.append(i)
-        for i in index:
-            if i != 2 and i != 3 and i != 5:  return False
-        return True
+        if n <= 0:   return False
+        if int(self.decrease(n)) == 1:   return True
+        return False
