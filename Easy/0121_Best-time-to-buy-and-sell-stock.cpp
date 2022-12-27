@@ -21,19 +21,37 @@ using namespace std;
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int m = 0;
-        vector <int> profit;
-        for (auto i = 0; i < prices.size() - 1; i++){
-            for (auto j = i+1; j<prices.size(); j++){
-                if (prices[j] - prices[i] > m){
-                    m = prices[j] - prices[i];
-                    profit.push_back(m);
-                }
+        vector<int> descend = {prices.begin(), prices.end()};
+        sort(descend.begin(), descend.end(), greater<int>());
+        if (prices == descend)  return 0;
+
+        int max_pos = 0, min_pos = 0;
+        int max = prices[0], min = prices[0];
+        for (int i = 1; i<prices.size(); i++){
+            if (prices[i] > max){  
+                max_pos = i;
+                max = prices[i];
+            }
+            if (prices[i] < min){
+                min_pos = i;
+                min = prices[i];
             }
         }
 
-        if (profit.size() == 0) return 0;
-        int max = *max_element(profit.begin(), profit.end());
-        return max;
+        if (min_pos < max_pos)  return max - min;
+        else{
+            vector <int> prices1 = {prices.begin(), prices.begin() + max_pos + 1};
+            vector <int> prices2 = {prices.begin() + min_pos, prices.end()};
+            int max1 = maxProfit(prices1);
+            int max2 = maxProfit(prices2);
+            max = (max1 > max2) ? max1 : max2;
+
+            if (max_pos < min_pos - 1){
+                vector<int> prices3 = {prices.begin() + max_pos + 1, prices.begin() + min_pos};
+                int max3 = maxProfit(prices3);
+                if (max3 > max) return max3;
+            }
+            return max;
+        }
     }
 };
