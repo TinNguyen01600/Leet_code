@@ -17,11 +17,15 @@ using namespace std;
 class Solution {
 public:
     vector<int> findDisappearedNumbers(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> freq(n);
+        for (auto i:nums){
+            freq[i-1]++;
+        }
+
         vector<int> result;
-        for (int i = 1; i<=nums.size(); i++){
-            if (find(nums.begin(), nums.end(), i) == nums.end()){
-                result.push_back(i);
-            }
+        for (int i = 0; i<freq.size(); i++){
+            if (freq[i] == 0)   result.push_back(i+1);
         }
         return result;
     }
